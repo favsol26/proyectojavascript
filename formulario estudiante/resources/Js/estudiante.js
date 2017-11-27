@@ -36,20 +36,20 @@
       var tdId = document.createElement("td");
       var txtId = document.createTextNode(datos.ide);
       
+      var tdEmail = document.createElement("td");
+      var txtEmail = document.createTextNode(datos.emaile);
+
       var tdNombre = document.createElement("td");
       var txtNombre = document.createTextNode(datos.nombree);
       
+      var tdTelefono = document.createElement("td");
+      var txtTelefono = document.createTextNode(datos.telefonoe);
+     
       var tdMatricula = document.createElement("td");
       var txtMatricula = document.createTextNode(datos.matriculae);
       
       var tdIdentificacion = document.createElement("td");
       var txtIdentificacion = document.createTextNode(datos.identificacione);
-      
-      var tdTelefono = document.createElement("td");
-      var txtTelefono = document.createTextNode(datos.telefonoe);
-
-      var tdEmail = document.createElement("td");
-      var txtEmail = document.createTextNode(datos.emaile);
       
       tdId.appendChild(txtId);
       tr.appendChild(tdId);
