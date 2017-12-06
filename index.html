@@ -19,8 +19,8 @@
             <label>E-mail: <label>
              <input id="emailEst">
  -->
- 
-<!-- 
+
+  <!-- 
      console.log(est1);
      console.log("ID: "+id);
      console.log(" Nombre: "+nombre);
@@ -29,6 +29,51 @@
      console.log(" Teléfono: "+telefono);
      console.log(" E-mail: "+email);
       -->
+      
+  <!-- <script>
+    var lugar = 0;
+    var sTexto = datosAnteriores;
+
+    while (controlador < 5) {
+
+      alert("fi =" + fila);
+      alert("da = " + datosAnteriores);
+      alert("lugar = " + lugar + " cont = " + controlador);
+      alert("st = " + sTexto);
+
+      lugar = sTexto.indexOf(sTextoBuscado) + 1;
+      sTexto =
+        sTexto.substring(
+          sTexto.indexOf(sTextoBuscado) + sTextoBuscado.length,
+          sTexto.length);
+      if (controlador == fila) {
+        fila = sTexto.indexOf(sTextoBuscado, lugar); break;
+      }
+      controlador++;
+    }
+    function getId() {
+  myStorage = window.localStorage;
+  var datosAnteriores = myStorage.getItem("Estudiantes");
+  var sTextoBuscado = "{";
+  var contador = 0;
+  if (datosAnteriores != null) {
+    var sTexto = datosAnteriores;
+
+    while (sTexto.indexOf(sTextoBuscado) > -1) {
+      sTexto = sTexto.substring(sTexto.indexOf(sTextoBuscado) + sTextoBuscado.length, sTexto.length);
+      contador++;
+      alert(contador);
+      return contador;
+    }
+
+  } else {
+    contador = 1;
+    alert(contador);
+  }
+};
+  </script> -->
+
+
 </body>
 
 </html>

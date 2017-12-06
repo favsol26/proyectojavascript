@@ -1,74 +1,155 @@
-     var Estudiante = function(){
-      var self= this;
-      self.ide ="";
-      self.nombree ="";
-      self.matriculae ="";
-      self.identificacione ="";
-      self.telefonoe ="";
-      self.emaile ="";
-    };
+var Estudiante = function () {
+  var self = this;
+  self.ide = "";
+  self.nombree = "";
+  self.matriculae = "";
+  self.identificacione = "";
+  self.telefonoe = "";
+  self.emaile = "";
+};
 
-    function recorrer(){
-      var est1 = new Estudiante(); 
+$(document).ready(function () {
 
-      var id = document.getElementById('IdEst').value;
-      var nombre = document.getElementById('nombreEst').value;
-      var matricula = document.getElementById('matriculaEst').value;
-      var identificacion = document.getElementById('identificacionEst').value;
-      var telefono = document.getElementById('telefonoEst').value;
-      var email = document.getElementById('emailEst').value;
+  myStorage = window.localStorage;
+  var dbEstudiantes = myStorage.getItem("Estudiantes");
 
-      est1.ide = id;
-      est1.nombree = nombre;
-      est1.matriculae = matricula;
-      est1.identificacione = identificacion;
-      est1.telefonoe = telefono;
-      est1.emaile = email;
+  if (dbEstudiantes != null) {
 
-      addrow(est1);
-    };
+    var Estudiantes = JSON.parse(dbEstudiantes);
 
-    function addrow(datos){ 
-      var table = document.getElementById("estudiantes");
+    $.each(Estudiantes, function (i, est) {
+      addrow(est);
+    }); 
+  }
 
-      var tr = document.createElement("tr");
+  $("#addEst").click(function () {
+    // alert("HOLA!!!");
+    var id = $("#IdEst").val();
+    var nombre = $("#nombreEst").val();
+    var matricula = $("#matriculaEst").val();
+    var identificacion = $("#identificacionEst").val();
+    var telefono = $("#telefonoEst").val();
+    var email = $("#emailEst").val();
 
-      var tdId = document.createElement("td");
-      var txtId = document.createTextNode(datos.ide);
-      
-      var tdEmail = document.createElement("td");
-      var txtEmail = document.createTextNode(datos.emaile);
+    var est1 = new Estudiante();
 
-      var tdNombre = document.createElement("td");
-      var txtNombre = document.createTextNode(datos.nombree);
-      
-      var tdTelefono = document.createElement("td");
-      var txtTelefono = document.createTextNode(datos.telefonoe);
-     
-      var tdMatricula = document.createElement("td");
-      var txtMatricula = document.createTextNode(datos.matriculae);
-      
-      var tdIdentificacion = document.createElement("td");
-      var txtIdentificacion = document.createTextNode(datos.identificacione);
-      
-      tdId.appendChild(txtId);
-      tr.appendChild(tdId);
+    est1.ide = id;
+    est1.nombree = nombre;
+    est1.matriculae = matricula;
+    est1.identificacione = identificacion;
+    est1.telefonoe = telefono;
+    est1.emaile = email; 
+    // alert(JSON.stringify(est1));
+    addrow(est1);
+    guardardb(est1);
+  });
 
-      tdNombre.appendChild(txtNombre);
-      tr.appendChild(tdNombre);
 
-      tdMatricula.appendChild(txtMatricula);
-      tr.appendChild(tdMatricula);
+  $("#delEst").click(function () {
+    var con = 0;
+    var f1 = 0;
+    $("input:checkbox:checked").each(function () {
+      f1 = $(this).attr("id");
+      con++;
+    });
 
-      tdIdentificacion.appendChild(txtIdentificacion);
-      tr.appendChild(tdIdentificacion);
+    if (con == 1) {
+      eliminarEstudiante(f1);
+    } else {
+      alert("debe elegir 1");
+    }
+  }); 
+});
 
-      tdTelefono.appendChild(txtTelefono);
-      tr.appendChild(tdTelefono);
+function addrow(datos) {
 
-      tdEmail.appendChild(txtEmail);
-      tr.appendChild(tdEmail);
+  var id = document.getElementById("estudiantes").rows.length;
+  console.log(id);
 
-      table.appendChild(tr);
-    };
-    
+  var rowDatos = "<tr>"
+    + '<td> <input type="checkbox" id ="' + id + '"></td>'
+    + "<td>" + datos.ide + "</td>"
+    + "<td>" + datos.nombree + "</td>"
+    + "<td>" + datos.matriculae + "</td>"
+    + "<td>" + datos.identificacione + "</td>"
+    + "<td>" + datos.telefonoe + "</td>"
+    + "<td>" + datos.emaile + "</td>"
+    + " </tr>";
+
+  $("table tbody").append(rowDatos);
+
+};
+
+
+
+function guardardb(datos) {
+  // buscando el controlador localStorage
+  myStorage = window.localStorage;
+
+  var Estudiantes = [];
+
+  var dbEstudiantes = myStorage.getItem("Estudiantes");
+  if (dbEstudiantes != null) {
+    Estudiantes = JSON.parse(dbEstudiantes);
+  }
+
+  Estudiantes.push(datos);
+  myStorage.setItem("Estudiantes", JSON.stringify(Estudiantes));
+};
+
+function eliminarEstudiante(fila) {
+  // alert(fila);
+  myStorage = window.localStorage;
+  var sTextoBuscado = "{";
+  var expression = fila;
+  var row = fila;
+  var controlador = 0;
+  var contador = 0;
+  var datosAnteriores = myStorage.getItem("Estudiantes");
+
+  if (datosAnteriores != null) {
+    var sTexto = datosAnteriores;
+
+    while (sTexto.indexOf(sTextoBuscado) > -1) {
+      sTexto = sTexto.substring(sTexto.indexOf(sTextoBuscado) + sTextoBuscado.length, sTexto.length);
+      contador++;
+    }
+
+    for (var i = 0; i <= datosAnteriores.length; i++) {
+      if (datosAnteriores.substring(i, i + 1) == '{') {
+        controlador++;
+        if (controlador == fila) {
+          fila = datosAnteriores.indexOf(sTextoBuscado, i);
+          break;
+        }
+      }
+    }
+
+    var start = datosAnteriores.indexOf("{", fila);
+    var end = datosAnteriores.indexOf("}", start);
+
+    if (expression == contador && contador > 1) {
+      expression = 1;
+    }
+
+    switch (expression) {
+      case 1:
+        var datosTemporales = (datosAnteriores.substring(start - 1, end + 1));
+        break;
+      default:
+        var datosTemporales = (datosAnteriores.substring(start, end + 2));
+    }
+
+    if (contador > 1) {
+      var datosNuevos = datosAnteriores.replace(datosTemporales, "");
+      myStorage.removeItem("Estudiantes");
+      myStorage.setItem("Estudiantes", (datosNuevos));
+      document.getElementById("estudiantes").deleteRow(row);
+    } else {
+      myStorage.removeItem("Estudiantes");
+    }
+    // console.log(datosAnteriores);
+    // console.log(datosNuevos);
+  }
+  location.reload();
+};

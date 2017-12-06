@@ -1,17 +1,20 @@
 <html>
+
 <head>
 
   <title>"Hello,faustino ayala World" </title>
 
   <link rel="stylesheet" href="resources/css/bootstrap.min.css">
 
-  <script src="resources\Js\estudiante.js"></script>
+  <script src="resources\js\jquery-3.2.1.min.js"></script>
+
+  <script src="resources\js\estudiante.js"></script>
 
 </head>
+
 <body>
 
-  <form class="form-group">
-
+  <form> 
     <div class="form-group">
       <label for="IdEst" class="col-sm-2 control-label">Id</label>
       <div class="col-sm-10">
@@ -66,16 +69,30 @@
       </div>
     </div>
 
+    <button type="button" id="addEst" class="btn btn-success">Registrar</button> 
+    <button type="button" id="delEst" class="btn btn-danger">Borrar</button>
+
   </form>
-
-  <button type="submit" class="button" onclick="recorrer();">registrar</button>
   <br>
-  <br>
-  <br>
+  <br> 
 
-  <table id="estudiantes" width="100%" border="1">
+  <table id="estudiantes" class="table" width="100%" border="1">
+    <thead>
+      <tr>
+        <td></td>
+        <td>ID</td>
+        <td>Nombre</td>
+        <td>Matrícula</td>
+        <td>Identificación</td>
+        <td>Teléfono</td>
+        <td>E-mail</td>
+      </tr>
+    </thead>
+    <tbody>
 
+    </tbody>
   </table>
 
 </body>
+
 </html>
