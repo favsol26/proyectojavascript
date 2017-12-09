@@ -9,48 +9,22 @@ var post = function () {
 var root = 'https://jsonplaceholder.typicode.com';
 
 $(document).ready(function () {
-
-
-
     $.ajax({
-        url: root + '/posts/',// + id,
+        url: root + '/posts/',
         method: 'GET'
-    }).then(function (data) {
+    }).then(function (z) {
 
         $.each(data, function (i, p) {
-            addrow(p);
+            addPosts(p);
         });
-
-
-
-
-
-        $("#buscar").click(function () {
-            var id = $("#idBuscar").val();
-
-
-            // console.log(data.title);
-            // $("#titulo").text(data.title);
-        });
-
     });
-
 });
 
-
-function addrow(datos) {
-
-    // var id = document.getElementById("estudiantes").rows.length;
-    // console.log(id);
+function addPosts(datos) {
 
     var rowDatos = '<br> <divclass="col-sm-2">'
         + '<td> <h1>"' + datos.title + '"</h1></td>'
         + '<td> <h5>' + datos.body + '</h5></td>'
-        // + "<td>" + datos.nombree + "</td>"
-        // + "<td>" + datos.matriculae + "</td>"
-        // + "<td>" + datos.identificacione + "</td>"
-        // + "<td>" + datos.telefonoe + "</td>"
-        // + "<td>" + datos.emaile + "</td>"
         + " </div> </br>";
 
     $("#posts").append(rowDatos);
