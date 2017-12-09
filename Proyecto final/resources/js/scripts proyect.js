@@ -12,7 +12,7 @@ $(document).ready(function () {
     $.ajax({
         url: root + '/posts/',
         method: 'GET'
-    }).then(function (z) {
+    }).then(function () {
 
         $.each(data, function (i, p) {
             addPosts(p);
