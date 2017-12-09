@@ -10,9 +10,9 @@ var root = 'https://jsonplaceholder.typicode.com';
 
 $(document).ready(function () {
     $.ajax({
-        url: root + '/posts/',
+        url: root + '/posts',
         method: 'GET'
-    }).then(function () {
+    }).then(function (data) {
 
         $.each(data, function (i, p) {
             addPosts(p);
