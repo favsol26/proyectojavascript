@@ -22,11 +22,13 @@ $(document).ready(function () {
 
 function addPosts(datos) {
 
-    var rowDatos = '<br> <divclass="col-sm-2">'
-        + '<td> <h1>"' + datos.title + '"</h1></td>'
-        + '<td> <h5>' + datos.body + '</h5></td>'
-        + " </div> </br>";
+    var rowDatos = '<div class="col-sm-8"> '
+        + '<br>'
+        + '<td> <h1>"' + datos.title + '"</h1> </td>'
+        + '<td> <h5>' + datos.body + '</h5>  </td>'
+        + " </br>"
+        + " </div>";
 
     $("#posts").append(rowDatos);
-
+    // bordercolor: #aaaaaaa; border-style: solid; border-width: 1px;
 };
