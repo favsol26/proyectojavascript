@@ -47,9 +47,9 @@ function cargarPost() {
                     '</div>' +
 
                     '<div class="row">' +
-                    '   <div class="col-md-10">' +
+                    '   <div href="#" class="col-md-10 user_info"  data-user-id=' + p.userId + '>' +
                     '       <a class="publicador">' +
-                    '           <span class="glyphicon glyphicon-user">' +
+                    '           <span class="glyphicon glyphicon-user ">' +
                     usuarios[p.userId].name + " - " + usuarios[p.userId].email +
                     '         </span>' +
                     '       </a >' +
@@ -57,7 +57,8 @@ function cargarPost() {
 
                     '   <div class="col-md-2">' +
                     '       <button class="btn glyphicon '
-                    + (existe ? 'glyphicon-star' : 'glyphicon-star-empty') + ' post_boton" data-post-id=' + p.id + '/>' +
+                    + (existe ? 'glyphicon-star' : 'glyphicon-star-empty') +
+                    ' post_boton" data-post-id=' + p.id + '/>' +
                     '   </div>' +
 
                     '</div>' +
@@ -94,21 +95,23 @@ function cargarPost() {
             $('.post_title').click(function () {
                 event.preventDefault();
                 var postId = $(this).data("post-id");
-                
+
                 // alert(postId);
                 window.location = "post_page.html?id=" + postId;
             });
 
             // espacio para el evento de la llamada de la vista de los detalles de los usuarios
+            $('.user_info').click(function () {
+                event.preventDefault();
+                var userId = $(this).data("user-id");
 
-
+                // alert(userId);
+                window.location = "user_page.html?id=" + userId;
+            });
         });
 
     });
 };
-
-
-
 
 function agregarFavorito(postId) {
     var myLocalStorage = window.localStorage;
