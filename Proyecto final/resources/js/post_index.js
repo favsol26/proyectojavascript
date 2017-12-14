@@ -108,6 +108,7 @@ function cargarPost() {
                 // alert(userId);
                 window.location = "user_page.html?id=" + userId;
             });
+
         });
 
     });
@@ -120,15 +121,15 @@ function agregarFavorito(postId) {
 
     if (dbPostFavoritos != null) {
         postFavoritos = JSON.parse(dbPostFavoritos);
-    }
+        
+        var existe = false;
 
-    var existe = false;
-
-    if (postId in postFavoritos) {
-        delete postFavoritos[postId];
-    } else {
-        existe = true;
-        postFavoritos[postId] = true;
+        if (postId in postFavoritos) {
+            delete postFavoritos[postId];
+        } else {
+            existe = true;
+            postFavoritos[postId] = true;
+        }
     }
     localStorage.setItem('postFavoritos', JSON.stringify(postFavoritos));
     return existe;
