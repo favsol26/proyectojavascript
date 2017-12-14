@@ -3,11 +3,24 @@ function cargarDatosUsuario() {
 
     var urlParams = new URLSearchParams(window.location.search);
     var idUsuario = urlParams.get('id');    // alert("hola " + idUsuario);
+    var num = 0;
 
     $.ajax({
         url: root + '/users/' + idUsuario,
         method: 'GET'
     }).then(function (data) {        // console.log(data);
+
+        $.ajax({
+            url: root + '/posts/?userId=' + idUsuario,
+            method: 'GET'
+        }).then(function (data) {
+            $.each(data, function (i, usuario) {
+                num++;
+            });
+            var postsCount = '<h4>Cantidad de posts : ' + num + '</h4>';
+            $("#userCountCcomments").append(postsCount);
+        });
+
         var userData =
 
             '<div class="row">' +
